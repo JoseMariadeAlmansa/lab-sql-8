@@ -1,3 +1,4 @@
+USE sakila;
 #1 Write a query to display for each store its store ID, city, and country.
 SELECT T1.store_id AS StoreID , T3.city AS City , T4.country AS Countr FROM sakila.Store AS T1
 INNER JOIN sakila.address AS T2 ON T1.address_id = T2.address_id
@@ -50,11 +51,15 @@ INNER JOIN sakila.film_actor AS t2 ON t1.actor_id != t2.actor_id
 WHERE t1.actor_id < t2.actor_id
 AND t1.film_id = t2.film_id;	
 #8 Get all pairs of customers that have rented the same film more than 3 times.
-SELECT	
-columns
-customers
-customers
-tables;
+SELECT R1.customer_id AS C1,R2.customer_id AS C2
+FROM sakila.rental AS R1
+INNER JOIN sakila.rental AS R2 ON R1.rental_id != R2.rental_id
+INNER JOIN inventory AS I3 ON R1.inventory_id = I3.inventory_id 
+WHERE I3.film_id = I3.film_id
+AND R1.inventory_id = R2.inventory_id
+GROUP BY C1, C2
+HAVING COUNT(Distinct R1.rental_id) > 3;   
+
 #9 For each film, list actor that has acted in more films.
 SELECT t1.first_name, t1.last_name, t3.title
 FROM sakila.actor AS t1
